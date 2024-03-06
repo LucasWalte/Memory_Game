@@ -1,0 +1,154 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4b6b6;
+  margin: 0;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 90vh;
+  justify-content: space-around;
+}
+
+h1 {
+  color: #000000;
+  text-align: center;
+  font-size: 1.5vw;
+}
+
+h3 {
+  color: #414141;
+  text-align: center;
+  font-size: .75vw;
+}
+
+.hidden {
+  display: none;
+}
+
+body.blur {
+  filter: blur(8px);
+  overflow: hidden;
+}
+
+body.blur > *:not(#startButton, #gameContainer) {
+  pointer-events: none;
+}
+
+#startButton {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#contentToBlur.blur {
+  filter: blur(8px);
+}
+
+.hidden {
+  display: none;
+}
+
+#gameContainer {
+  width: 65vw;
+  background-color: #bc9a9a;
+  margin: 5px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+#gameContainer.active {
+  transform: scale(1.05);
+}
+
+
+#game {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1vw;
+  padding: 1vw;
+  background-color: #bc9a9a;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  max-width: 40vw;
+  margin: auto;
+}
+
+.score {
+  grid-column: 3; 
+  grid-row: 3; 
+  font-size: 2em;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #444; 
+  border-radius: 50%; 
+  aspect-ratio: 1 / 1; 
+}
+
+#game div {
+  width: 5vw;
+  height: 5vw;
+  border: 2px solid #000000;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* position: relative; This breaks everything and it was the source of my problems and took me like an hour to figure out */
+  transform-style: preserve-3d;
+}
+
+.front, .back {
+  width: 5vw;
+  height: 5vw;
+  position: absolute;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  transition: transform 0.6s;
+  transform-origin: center;
+}
+
+.front {
+  background-color: #f0f0f0;
+  z-index: 2;
+}
+
+.back {
+  background-size: cover;
+  background-position: center;
+  transform: rotateY(180deg);
+}
+
+.flipped .front {
+  transform: rotateY(-180deg);
+  z-index: 1;
+}
+
+.flipped .back {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.matched {
+  border: 2px solid #4caf50;
+  pointer-events: none;
+}
